@@ -1,1 +1,5 @@
+# ESC-Push-Frontend
+
 React app for users to register for notifications using their browsers
+
+main files that contain api calls and are to be edited - App.js, index.js, onesignal.js, registerUser.js, getUser.js
