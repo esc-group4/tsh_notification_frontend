@@ -1,5 +1,7 @@
 import OneSignal from "react-onesignal";
 import axios from "axios";
+import getUsersByTag from "./getUser";
+import runOneSignal from "./onesignal";
 
 const API_KEY = "MDk4MzUyNjctZTA2NC00MzBiLTlmOTctNWM2NTNlMmU0Yzk0";
 const ONE_SIGNAL_APP_ID = "ec153c30-9c70-43c2-b87d-1a842135970a";
@@ -27,7 +29,7 @@ function getDeviceType() {
     return 12;
   }
 
-export default async function registerUser(name) {
+export async function registerUser(name) {
     try {
         const deviceType = getDeviceType();
         // Format user registration payload
@@ -46,7 +48,41 @@ export default async function registerUser(name) {
         },
       });
       console.log('User registered :D', response.data);
+      // Need to intialise SDK worker after user correctly added!
+      runOneSignal();
     } catch (error) {
       console.error('Error registering user:', error.response ? error.response.data : error.message);
     }
   }
+
+  export async function unregisterUser(name) {
+    try {
+        // Get users by tag
+        const users = await getUsersByTag(name);
+        if (users.length === 0) {
+            console.log('No users found with the given tag.');
+            return;
+        }
+
+        // Extract the identifier (player ID) from the first user found
+        const user = users[0];
+        const identifier = user.id; // Adjust based on actual structure
+
+        console.log(`Attempting to unregister user with identifier: ${identifier}`);
+
+        // Send request to delete the user using Axios
+        const response = await axios.delete(`https://onesignal.com/api/v1/players/${identifier}`, {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Basic ${API_KEY}`,
+            },
+            params: {
+              app_id: ONE_SIGNAL_APP_ID,
+            }
+        });
+        console.log('User unregistered successfully :D', response.data);
+    } catch (error) {
+        // Log the full error response for debugging
+        console.error('Error unregistering user:', error.response ? error.response.data : error.message);
+    }
+}

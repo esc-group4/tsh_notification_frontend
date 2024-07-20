@@ -1,6 +1,7 @@
 import runOneSignal from './onesignal.js';
 import React, { useState } from 'react';
-import registerUser from './registerUser.js';
+import { registerUser } from './decideUser.js';
+import {unregisterUser} from './decideUser.js';
 import getUsersByTag from './getUser.js'; 
 
 function App() {
@@ -18,6 +19,10 @@ function App() {
     registerUser(userName);
   };
 
+  const handleUnregisterUser = () => {
+    unregisterUser(userName);
+  };
+
   return (
     <div>
       <input 
@@ -32,9 +37,9 @@ function App() {
         value={findName} 
         onChange={(e) => setFindName(e.target.value)} 
       />
-      <button onClick={runOneSignal}>Initialize OneSignal</button>
       <button onClick={handleRegisterUser}>Register User</button>
       <button onClick={handleGetUsers}>View users in console</button>
+      <button onClick={handleUnregisterUser}>Unregister User</button>
     </div>
   );
 }
