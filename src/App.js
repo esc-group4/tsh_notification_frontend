@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { registerUser } from './decideUser.js';
 import {unregisterUser} from './decideUser.js';
 import getUsersByTag from './getUser.js'; 
+import Button from './Button.js';
 
 function App() {
   const [userName, setUserName] = useState('');
@@ -37,9 +38,9 @@ function App() {
         value={findName} 
         onChange={(e) => setFindName(e.target.value)} 
       />
-      <button onClick={handleRegisterUser}>Register User</button>
-      <button onClick={handleGetUsers}>View users in console</button>
-      <button onClick={handleUnregisterUser}>Unregister User</button>
+      <Button onClick={handleRegisterUser}>Register User</Button>
+      <Button onClick={handleGetUsers}>View users in console</Button>
+      <Button onClick={handleUnregisterUser}>Unregister User</Button>
     </div>
   );
 }
