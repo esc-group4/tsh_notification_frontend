@@ -4,13 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// SDK deprecated version will be called because of current version's unsupported MIME type  
+// if MIME type is not the expected application/json, somehow SDK worker is not found. you need to provide exact scope.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // React.StrictMode removed so that SDK only inititalises once
   <>
-    <App />
     <div>Please download this site as an app! Turn on your browser notifications to receive notifications from me :D</div>
+    <App />
   </>
 );
 

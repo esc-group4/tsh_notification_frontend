@@ -1,46 +1,69 @@
-import runOneSignal from './onesignal.js';
 import React, { useState } from 'react';
-import { registerUser } from './decideUser.js';
-import {unregisterUser} from './decideUser.js';
-import getUsersByTag from './getUser.js'; 
+import getRecentUser from './getUser.js'; 
+import registerUser from './decideUser.js';
 import Button from './Button.js';
 
 function App() {
   const [userName, setUserName] = useState('');
-  const [findName, setFindName] = useState('');
+  const [tempUserName, setTempUserName] = useState('');
+  const [recentUser, setRecentUser] = useState('');
+  const [showRecentUser, setShowRecentUser] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false); // Track registration status
+  const [message, setMessage] = useState(''); // Message after registration
 
-  const handleGetUsers = () => {
-    getUsersByTag(findName).then(users => {
-      console.log(`Users with employee = ${findName}:`, users);
-    });
+  const handleInputChange = (e) => {
+    setTempUserName(e.target.value); // Update temporary state on input change
   };
 
-
-  const handleRegisterUser = () => {
-    registerUser(userName);
+  const handleGetUsers = async () => {
+    if (isRegistered) {
+      const user = await getRecentUser();
+      setRecentUser(user);
+      setShowRecentUser(true); // Show the recent user ID after fetching
+    } else {
+      console.log("User not registered yet.");
+    }
   };
 
-  const handleUnregisterUser = () => {
-    unregisterUser(userName);
+  const handleRegisterUser = async () => {
+    try {
+      const value = await registerUser(tempUserName); // Register the user
+      if ( value === null ) {
+        return;
+      }
+      setUserName(tempUserName); // Update userName with the temporary input value
+      setIsRegistered(true); // Mark as registered
+      setMessage('User is registered successfully!'); // Set registration message
+    } catch (error) {
+      setMessage('Error registering user.'); // Set error message if registration fails
+    }
   };
 
   return (
-    <div>
-      <input 
-        type="text" 
-        placeholder="Enter your name to register" 
-        value={userName} 
-        onChange={(e) => setUserName(e.target.value)} 
-      />
-      <input 
-        type="text" 
-        placeholder="Enter the name of employee you want to find" 
-        value={findName} 
-        onChange={(e) => setFindName(e.target.value)} 
-      />
-      <Button onClick={handleRegisterUser}>Register User</Button>
-      <Button onClick={handleGetUsers}>View users in console</Button>
-      <Button onClick={handleUnregisterUser}>Unregister User</Button>
+    <div className="container">
+      <div className="input-container">
+        <input 
+          type="text" 
+          placeholder="Enter your name to register" 
+          value={tempUserName} 
+          onChange={handleInputChange} 
+          className="input-box"
+        />
+      </div>
+      <div className="button-container">
+        <Button onClick={handleRegisterUser}>Click to register User</Button>
+        <Button onClick={handleGetUsers}>View your user id</Button>
+      </div>
+      {message && (
+        <div className="registration-message">
+          <p>{message}</p>
+        </div>
+      )}
+      {showRecentUser && (
+        <div className="recent-user">
+          <p>{userName}'s Subscription id: {recentUser}</p>
+        </div>
+      )}
     </div>
   );
 }
