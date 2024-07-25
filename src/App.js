@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import getRecentUser from './getUser.js'; 
 import registerUser from './decideUser.js';
 import Button from './Button.js';
@@ -41,6 +42,9 @@ function App() {
 
   return (
     <div className="container">
+      <header className="instructions">
+        <h1>Please click the notification bell! Register your name afterwards.</h1>
+      </header>
       <div className="input-container">
         <input 
           type="text" 
