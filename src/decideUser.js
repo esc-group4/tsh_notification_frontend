@@ -7,10 +7,25 @@
 // const ONE_SIGNAL_APP_ID = "39dc6c84-8625-4449-bfd2-db8c9b58e9f0";
 
 export default async function registerUser(name) {
-    if ( name.length === 0 ) {
+    // if ( name.length === 0 ) {
+    //     return null;
+    // }
+    // return name;
+    if (name === null ) {
+        console.log("user did not enter any input");
         return null;
     }
-    return name;
+    try {
+        const response = await fetch(`http://localhost:3001/staff/submit/${name}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        console.log("User is registered");
+        return name;
+      } catch (error) {
+        console.error('Error registering user', error);
+        return null;
+      }
 };
 
 //   export async function unregisterUser(name) {

@@ -5,7 +5,7 @@ export default async function getRecentUser() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    return data.recent; // Assuming your Express app returns { recent: 'user-id' }
+    return data.recent;
   } catch (error) {
     console.error('Error fetching recent user:', error);
     return null;

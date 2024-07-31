@@ -26,9 +26,11 @@ function App() {
     }
   };
 
+
+  // FIX CONCURRENCY ISSUE!!!! user actually needs to click notification bell FIRST before this.
   const handleRegisterUser = async () => {
     try {
-      const value = await registerUser(tempUserName); // Register the user
+      const value = await registerUser(tempUserName.trim()); // Register the user
       if ( value === null ) {
         return;
       }
