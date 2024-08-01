@@ -6,7 +6,7 @@
 // const API_KEY = "ODk5NDUzNjUtMzBkZS00ZTNiLWE3YWUtMWY5M2JhNWRiN2Iy";
 // const ONE_SIGNAL_APP_ID = "39dc6c84-8625-4449-bfd2-db8c9b58e9f0";
 
-export default async function registerUser(name) {
+export default async function registerUser(name, id) {
     // if ( name.length === 0 ) {
     //     return null;
     // }
@@ -16,7 +16,7 @@ export default async function registerUser(name) {
         return null;
     }
     try {
-        const response = await fetch(`http://localhost:3001/staff/submit/${name}`);
+        const response = await fetch(`http://localhost:3001/staff/submit/${name}/${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

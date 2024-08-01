@@ -13,4 +13,12 @@ root.render(
   </>
 );
 
+
+// // Ensure OneSignal SDK is initialized before using its functions
+// window.OneSignalDeferred = window.OneSignalDeferred || [];
+// window.OneSignalDeferred.push(async function(OneSignal) {
+//   console.log(OneSignal.User.PushSubscription.id);
+// });
+
+
 reportWebVitals();

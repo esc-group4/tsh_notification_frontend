@@ -1,5 +1,3 @@
-// import OneSignal from 'react-onesignal';
-
 // export default async function runOneSignal() {
 //   try {
 //     await OneSignal.init({
