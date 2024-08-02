@@ -51,11 +51,13 @@ function App() {
     try {
       const value = await registerUser(tempUserName.trim(), subscriptionToken); // Register the user
       if ( value === null ) {
-        return;
+        setMessage('Error registering user.');
       }
-      setUserName(tempUserName); // Update userName with the temporary input value
-      setIsRegistered(true); // Mark as registered
-      setMessage('User is registered successfully!'); // Set registration message
+      else {
+        setUserName(value); // Update userName with the temporary input value
+        setIsRegistered(true); // Mark as registered
+        setMessage('User is registered successfully!'); // Set registration message
+      }
     } catch (error) {
       setMessage('Error registering user.'); // Set error message if registration fails
     }

@@ -1,16 +1,16 @@
-export default async function getRecentUser() {
-  try {
-    const response = await fetch('http://localhost:3001/get/user');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data.recent;
-  } catch (error) {
-    console.error('Error fetching recent user:', error);
-    return null;
-  }
-};
+// export default async function getRecentUser() {
+//   try {
+//     const response = await fetch('http://localhost:3001/get/user');
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     const data = await response.json();
+//     return data.recent;
+//   } catch (error) {
+//     console.error('Error fetching recent user:', error);
+//     return null;
+//   }
+// };
   
 // export async function getUsersByTag(tagValue) {
 //     let allPlayers = [];
