@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import registerUser from './decideUser.js';
-import Button from './Button.js';
+import Button from './components/Button.js';
+import Message from './components/Message.js';
+import RecentUser from './components/RecentUser.js';
 
 function App() {
   const [userName, setUserName] = useState('');
@@ -16,6 +18,9 @@ function App() {
     // Ensure OneSignal SDK is initialized before using its functions
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     window.OneSignalDeferred.push(function(OneSignal) {
+
+      // Will redirect users to link when they click on notification
+      OneSignal.Notifications.setDefaultUrl("http://localhost:3000/");
 
       function pushSubscriptionChangeListener(event) {
         if (event.current.token) {
@@ -45,8 +50,6 @@ function App() {
     }
   };
 
-
-  // FIX CONCURRENCY ISSUE!!!! user actually needs to click notification bell FIRST before this.
   const handleRegisterUser = async () => {
     try {
       const value = await registerUser(tempUserName.trim(), subscriptionToken); // Register the user
@@ -59,8 +62,18 @@ function App() {
         setMessage('User is registered successfully!'); // Set registration message
       }
     } catch (error) {
-      setMessage('Error registering user.'); // Set error message if registration fails
+      setMessage('Error registering user. Click the notification bell and try again.'); // Set error message if registration fails
     }
+  };
+
+  const clearMessage = () => {
+    setMessage('');
+  };
+
+  const clearRecentUser = () => {
+    setShowRecentUser(false);
+    setUserName('');
+    setSubscriptionToken('');
   };
 
   return (
@@ -81,15 +94,13 @@ function App() {
         <Button onClick={handleRegisterUser}>Click to register User</Button>
         <Button onClick={handleGetUsers}>View your user id</Button>
       </div>
-      {message && (
-        <div className="registration-message">
-          <p>{message}</p>
-        </div>
-      )}
+      <Message message={message} clearMessage={clearMessage} />
       {showRecentUser && (
-        <div className="recent-user">
-          <p>{userName}'s Subscription id: {subscriptionToken}</p>
-        </div>
+        <RecentUser 
+          userName={userName} 
+          subscriptionToken={subscriptionToken} 
+          clearRecentUser={clearRecentUser} 
+        />
       )}
     </div>
   );

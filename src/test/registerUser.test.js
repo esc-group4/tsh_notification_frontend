@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react';
 import registerUser from '../decideUser.js';
 
 // Mock fetch

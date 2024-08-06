@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #000000;
+  background-color: #011b56;
 }
 
 .App-logo {
@@ -18,29 +18,15 @@ body {
 }
 
 .App-link {
-  color: #61dafb;
+  color: #ff5353;
 }
 
 .instructions {
   color: #ffffff;
   font-size: 13px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Merriweather', sans-serif;
   margin-top: 20px;
-}
-
-.registration-message {
-  color: #ffffff;
-  font-size: 13px;
-  font-family: 'Open Sans', sans-serif;
-  margin-top: 20px;
-  margin-bottom: 0px;
-}
-
-.recent-user {
-  color: #ffffff;
-  font-size: 18px;
-  font-family: 'Open Sans', sans-serif;
-  margin-top: 0px;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
