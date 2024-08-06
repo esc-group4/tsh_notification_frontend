@@ -54,7 +54,7 @@ function App() {
     try {
       const value = await registerUser(tempUserName.trim(), subscriptionToken); // Register the user
       if ( value === null ) {
-        setMessage('Error registering user.');
+        setMessage('Error registering user. Click the notification bell and try again.');
       }
       else {
         setUserName(value); // Update userName with the temporary input value
