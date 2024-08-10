@@ -26,7 +26,7 @@ describe('Register for Popup Notification System Tests', () => {
     });
 
     // Intercept and mock the registerUser API call
-    cy.intercept('GET', 'http://localhost:3001/staff/submit/*', (req) => {
+    cy.intercept('GET', 'http://localhost:8001/staff/submit/*', (req) => {
       // Extract name and id from the URL
       const urlParts = req.url.split('/');
       const name = urlParts[urlParts.length - 2];
@@ -37,7 +37,7 @@ describe('Register for Popup Notification System Tests', () => {
     }).as('registerUser');
 
     // Visit the app before each test
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:3001');
   });
 
   it('renders the input, buttons, and header', () => {
@@ -49,18 +49,6 @@ describe('Register for Popup Notification System Tests', () => {
 
   it('registers the user and shows successful registration message', () => {
     const userName = 'testuser';
-    const id = 'mock-subscription-id';
-
-    // // Trigger the subscription change event
-    // cy.window().then((win) => {
-    //   // Call the mocked callback directly
-    //   if (win.mockedCallback) {
-    //     win.mockedCallback({ current: { token: 'mock-subscription-id' } });
-    //   } else {
-    //     throw new Error('Callback was not set');
-    //   }
-
-    // });
 
     cy.get('input[placeholder="Enter your name to register"]').type(userName);
     cy.contains('button', 'Click to register User').click();
@@ -70,7 +58,7 @@ describe('Register for Popup Notification System Tests', () => {
 
   it('handles registration errors', () => {
     // Modify the intercept to return an error
-    cy.intercept('GET', 'http://localhost:3001/staff/submit/*', {
+    cy.intercept('GET', 'http://localhost:8001/staff/submit/*', {
       statusCode: 500,
       body: { error: 'Registration failed' }
     }).as('registerUserError');

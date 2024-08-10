@@ -16,7 +16,7 @@ describe('registerUser', () => {
     
     const result = await registerUser(name, id);
 
-    expect(fetch).toHaveBeenCalledWith(`http://localhost:3001/staff/submit/${name}/${id}`);
+    expect(fetch).toHaveBeenCalledWith(`http://localhost:8001/staff/submit/${name}/${id}`);
     expect(result).toBe(name);
   });
 
@@ -35,7 +35,7 @@ describe('registerUser', () => {
 
     const result = await registerUser(name, id);
 
-    expect(fetch).toHaveBeenCalledWith(`http://localhost:3001/staff/submit/${name}/${id}`);
+    expect(fetch).toHaveBeenCalledWith(`http://localhost:8001/staff/submit/${name}/${id}`);
     expect(result).toBeNull();
   });
 
@@ -47,7 +47,7 @@ describe('registerUser', () => {
 
     const result = await registerUser(name, id);
 
-    expect(fetch).toHaveBeenCalledWith(`http://localhost:3001/staff/submit/${name}/${id}`);
+    expect(fetch).toHaveBeenCalledWith(`http://localhost:8001/staff/submit/${name}/${id}`);
     expect(result).toBeNull();
   });
 });

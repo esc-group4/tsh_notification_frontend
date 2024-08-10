@@ -5,7 +5,7 @@ export default async function registerUser(name, id) {
         return null;
     }
     try {
-        const response = await fetch(`http://localhost:3001/staff/submit/${name}/${id}`);
+        const response = await fetch(`http://localhost:8001/staff/submit/${name}/${id}`);
         if (response.ok === false) {
           throw new Error('Network response was not ok');
         }
