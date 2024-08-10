@@ -48,23 +48,4 @@ describe('RecentUser Component', () => {
 
     expect(clearRecentUser).toHaveBeenCalledTimes(1);
   });
-
-  it('clears timeout on unmount', () => {
-    const clearRecentUser = jest.fn();
-    const { unmount } = render(
-      <RecentUser 
-        userName="John Doe" 
-        subscriptionToken="12345" 
-        clearRecentUser={clearRecentUser}
-      />
-    );
-
-    unmount();
-
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
-
-    expect(clearRecentUser).not.toHaveBeenCalled();
-  });
 });

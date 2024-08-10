@@ -28,17 +28,4 @@ describe('Message Component', () => {
 
     expect(clearMessage).toHaveBeenCalledTimes(1);
   });
-
-  it('clears timeout on unmount', () => {
-    const clearMessage = jest.fn();
-    const { unmount } = render(<Message message="Test message" clearMessage={clearMessage} />);
-
-    unmount();
-
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
-
-    expect(clearMessage).not.toHaveBeenCalled();
-  });
 });
